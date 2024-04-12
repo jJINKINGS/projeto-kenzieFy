@@ -1,2 +1,3 @@
 export { BandController } from "./BandController";
-export { AlbumController } from "./AlbumController";
+export { AlbumController, albumController } from "./AlbumController";
+export { TrackController, trackController } from "./TrackController";

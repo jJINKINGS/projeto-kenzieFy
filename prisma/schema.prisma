@@ -27,7 +27,9 @@ model Album {
 model Track {
   id Int @id @default(autoincrement())
   title String @db.VarChar(255)
+  trackNumber Int?
   length Int
+
   albumId Int
   album Album @relation(fields: [albumId], references: [id]) //atributo virtual
 }

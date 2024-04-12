@@ -14,3 +14,5 @@ export class AlbumController {
         return res.status(201).json(newAlbum);
     };
 }
+
+export const albumController = new AlbumController();
