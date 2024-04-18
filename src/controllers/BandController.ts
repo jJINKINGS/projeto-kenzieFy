@@ -14,3 +14,5 @@ export class BandController {
         return res.status(201).json(newBand);
     };
 }
+
+export const bandController = new BandController();

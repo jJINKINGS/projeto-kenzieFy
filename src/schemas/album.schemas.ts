@@ -8,6 +8,6 @@ const albumSchema  = z.object({
     bandId: z.number().positive()
 });
 
-const albumCreateSchema = albumSchema.omit({ id: true }); //entrada de dados
+const albumBodyCreateSchema = albumSchema.omit({ id: true }); //entrada de dados
 
-export { albumSchema, albumCreateSchema };
+export { albumSchema, albumBodyCreateSchema };

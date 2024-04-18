@@ -7,6 +7,6 @@ const bandSchema  = z.object({
     foundedAt: z.number().nullish(), //junçao do optional(undefined) com o nullable(null)
 });
 
-const bandCreateSchema = bandSchema.omit({ id: true }); //entrada de dados
+const bandPayloadSchema = bandSchema.omit({ id: true }); //entrada de dados
 
-export { bandSchema, bandCreateSchema };
+export { bandSchema, bandPayloadSchema };

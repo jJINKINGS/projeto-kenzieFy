@@ -1,9 +1,9 @@
 // import { Band } from "@prisma/client";
 
 import { z } from "zod";
-import { albumCreateSchema, albumSchema } from "../schemas";
+import { albumBodyCreateSchema, albumSchema } from "../schemas";
 
 type Album = z.infer<typeof albumSchema>;
-type AlbumCreate = z.infer<typeof albumCreateSchema>;
+type AlbumBodyCreate = z.infer<typeof albumBodyCreateSchema>;
 
-export { Album, AlbumCreate };
+export { Album, AlbumBodyCreate };

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { ensure, ensureAlbum, ensureBand } from "../middlewares";
 import { AlbumController, albumController, trackController } from "../controllers";
-import { albumCreateSchema, trackBodySchema, trackPayloadSchema } from "../schemas";
+import { albumBodyCreateSchema, trackBodySchema, trackPayloadSchema } from "../schemas";
 
 
 export const albumRouter = Router();
@@ -10,7 +10,7 @@ export const albumRouter = Router();
 
 
 albumRouter.get("", albumController.list);
-albumRouter.post("", ensure.bodyIsValid(albumCreateSchema), ensureBand.idExists, albumController.create);
+albumRouter.post("", ensure.bodyIsValid(albumBodyCreateSchema), ensureBand.idExists, albumController.create);
 
 albumRouter.use("/:albumId/tracks", ensureAlbum.idExists);
 
