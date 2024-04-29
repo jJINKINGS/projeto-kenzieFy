@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
 import { AppError } from "../errors/AppError";
 import { JsonWebTokenError } from "jsonwebtoken";
+import { status } from "../utils";
 
 class HandleErrorsMidlleware{
     public static execute = (
@@ -15,14 +16,14 @@ class HandleErrorsMidlleware{
         }
 
         if(error instanceof JsonWebTokenError ) {
-            return res.status(401).json({ message: error.message });
+            return res.status(status.HTTP_401_UNAUTHORIZED).json({ message: error.message });
         }
 
         if(error instanceof ZodError ) {
-            return res.status(400).json({ messageError: error.errors});
+            return res.status(status.HTTP_400_BAD_REQUEST).json({ messageError: error.errors});
         }
         
-        return res.status(500).json({messsage: "Internal Server Error" });
+        return res.status(status.HTTP_500_INTERNAL_SERVER_ERROR).json({messsage: "Internal Server Error" });
     };
 }
 

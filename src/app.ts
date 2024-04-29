@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import  express, { json }  from "express";
 import "express-async-errors";
 import { bandRouter, albumRouter, trackRouter, accountRouter, sessionRouter } from "./routers";

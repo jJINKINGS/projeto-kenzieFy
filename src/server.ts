@@ -1,4 +1,7 @@
 import { app } from "./app";
+import { jwtConfig } from "./configs";
+
+jwtConfig();
 
 const PORT = 3000;
 

@@ -1,11 +1,34 @@
-import { Account, AccountBodyCreate, AccountReturn } from "../interfaces";
+import {  AccountBodyCreate, AccountReturn, IAccountService } from "../interfaces";
 import { prisma } from "../database"
-import { accountSchema, accountReturnSchema } from "../schemas";
+import {  accountReturnSchema } from "../schemas";
 import { hash } from "bcryptjs";
+import { injectable } from "tsyringe";
+import { AppError } from "../errors/AppError";
+import { status } from "../utils";
 
-export class AccountService {
+@injectable()
+export class AccountService implements IAccountService {
+
+    public isUsernameUnique = async(username: string): Promise<boolean> => {
+        const foundUser = await prisma.account.findFirst({ where: { username }});
+        
+        return Boolean(foundUser);
+        
+    }
+
+    public list = async (): Promise<Array<AccountReturn>> => {
+        const accounts = await prisma.account.findMany();
+
+        return accountReturnSchema.array().parse(accounts);
+    };
 
     public create = async (payload: AccountBodyCreate): Promise<AccountReturn> => {
+        const foundAccount = await this.isUsernameUnique(payload.username);
+
+        if(foundAccount){
+            throw new AppError("Username already exists.", status.HTTP_409_CONFLICT)
+        }
+
         payload.password = await hash(payload.password, 10); //exige esforço computacional para gerar esse hash
 
         const newAccount = await prisma.account.create({ data: payload });
@@ -14,10 +37,13 @@ export class AccountService {
     };
 
 
-    
-    public list = async (): Promise<Array<AccountReturn>> => {
-        const accounts = await prisma.account.findMany();
+    public retrieve = async (accountId: number): Promise<AccountReturn> => {
+        const account = await prisma.account.findFirst({
+            where: {id: accountId}
+        });
 
-        return accountReturnSchema.array().parse(accounts);
+        return accountReturnSchema.parse(account);
     };
 }
+
+// export const accountService = new AccountService();

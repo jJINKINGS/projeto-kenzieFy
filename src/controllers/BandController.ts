@@ -1,8 +1,12 @@
 import { Request, Response } from "express";
-import { BandService } from "../services";
+import { IBandService } from "../interfaces";
+import { injectable, inject } from "tsyringe";
 
+@injectable()
 export class BandController {
-    private service = new BandService();
+    // private service = new BandService();
+
+    constructor(@inject("BandService") private service: IBandService){};
 
     public list = async (req: Request, res: Response): Promise<Response> => {
         const bands = await this.service.list();
@@ -15,4 +19,4 @@ export class BandController {
     };
 }
 
-export const bandController = new BandController();
+// export const bandController = new BandController();

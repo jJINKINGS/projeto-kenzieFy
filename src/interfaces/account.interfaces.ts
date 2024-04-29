@@ -7,4 +7,11 @@ type Account = z.infer<typeof accountSchema>;
 type AccountBodyCreate = z.infer<typeof accountBodyCreateSchema>;
 type AccountReturn = z.infer<typeof accountReturnSchema>;
 
-export { Account, AccountBodyCreate, AccountReturn };
+interface IAccountService {
+    list(): Promise<Array<AccountReturn>>;
+    create(payload: AccountBodyCreate): Promise<AccountReturn>;
+    retrieve(accountId: number): Promise<AccountReturn>;
+    isUsernameUnique(username: string): Promise<boolean>;
+}
+
+export { Account, AccountBodyCreate, AccountReturn, IAccountService };
