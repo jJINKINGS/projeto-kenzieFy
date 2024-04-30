@@ -1,18 +1,18 @@
-import { Router } from "express";
-import { BandController, musicianController } from "../controllers";
-import { ensure } from "../middlewares";
-import { bandPayloadSchema } from "../schemas";
-import { bandService, bandInMemoryService, BandService } from "../services";
-import { container } from "tsyringe";
-
-export const bandRouter = Router();
-container.registerSingleton("BandService", BandService);
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.bandRouter = void 0;
+const express_1 = require("express");
+const controllers_1 = require("../controllers");
+const middlewares_1 = require("../middlewares");
+const schemas_1 = require("../schemas");
+const services_1 = require("../services");
+const tsyringe_1 = require("tsyringe");
+exports.bandRouter = (0, express_1.Router)();
+tsyringe_1.container.registerSingleton("BandService", services_1.BandService);
 // const bandController = new BandController(bandService);
 // const bandController = new BandController(bandInMemoryService);
-const bandController = container.resolve(BandController);
-
-/** 
+const bandController = tsyringe_1.container.resolve(controllers_1.BandController);
+/**
  * @openapi
  * /api/bands:
  *  get:
@@ -27,7 +27,7 @@ const bandController = container.resolve(BandController);
  *          application/json:
  *            schema:
  *              type: array
- *              items: 
+ *              items:
  *                $ref: '#/components/schemas/Band'
  *  post:
  *    tags:
@@ -50,9 +50,8 @@ const bandController = container.resolve(BandController);
  *      400:
  *        description: Bad Request
  */
-bandRouter.get("", bandController.list);
-bandRouter.post("", ensure.bodyIsValid(bandPayloadSchema), bandController.create);
-
+exports.bandRouter.get("", bandController.list);
+exports.bandRouter.post("", middlewares_1.ensure.bodyIsValid(schemas_1.bandPayloadSchema), bandController.create);
 //musicians
-bandRouter.post("/:bandId/musicians", musicianController.create);
-bandRouter.get("/:bandId/musicians", musicianController.list);
+exports.bandRouter.post("/:bandId/musicians", controllers_1.musicianController.create);
+exports.bandRouter.get("/:bandId/musicians", controllers_1.musicianController.list);

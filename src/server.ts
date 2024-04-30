@@ -1,8 +1,12 @@
 import { app } from "./app";
-import { jwtConfig } from "./configs";
+import { initApp } from "./app";
 
-jwtConfig();
+
+
 
 const PORT = 3000;
 
-app.listen(PORT, () => console.log(`Application is running on port: ${PORT}.`));
+app.listen(PORT, () => {
+    console.log(`Application is running on port: ${PORT}.`);
+    initApp();
+});

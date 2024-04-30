@@ -1,1 +1,1 @@
-export { jwtConfig } from "./auth.config";
+export { initJwtEnvVars } from "./auth.config";

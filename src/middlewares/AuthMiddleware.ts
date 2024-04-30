@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { AppError } from "../errors/AppError";
 import { verify } from "jsonwebtoken";
-import { jwtConfig } from "../configs";
+// import { jwtConfig } from "../configs";
 import { prisma } from "../database";
 import { status } from "../utils";
 
@@ -17,7 +17,8 @@ class AuthMiddleware {
         const [ _prefix, token ] = authorization.split(' ');
 
         // const secret = process.env.SECRET_KEY!;
-        const {secret} = jwtConfig();
+        // const {secret} = jwtConfig();
+        const secret = process.env.JWT_SECRET_KEY!;
         const jwtPayload = verify(token, secret);
 
         res.locals = {

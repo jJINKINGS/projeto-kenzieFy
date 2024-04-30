@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.sessionRouter = void 0;
+const express_1 = require("express");
+const controllers_1 = require("../controllers");
+const middlewares_1 = require("../middlewares");
+const schemas_1 = require("../schemas");
+exports.sessionRouter = (0, express_1.Router)();
+// accountRouter.get("", accountController.list);
+exports.sessionRouter.post("/login", middlewares_1.ensure.bodyIsValid(schemas_1.sessionBodyCreateSchema), controllers_1.sessionController.login);
