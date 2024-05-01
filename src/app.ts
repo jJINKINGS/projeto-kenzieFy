@@ -5,11 +5,13 @@ import { handleErrors } from "./middlewares";
 import { initRoutes } from "./routers";
 import { initJwtEnvVars } from "./configs";
 import { initSwagger } from "./configs/swagger";
+import cors from "cors";
 
 export const app = express();
 
 // INICALIZAR OS PROCESSOS NECESSARIOS PARA RODAR A APLICAÇÃO
 export const initApp = () => {
+    app.use(cors);
     app.use(json());
     initRoutes(app);
     initJwtEnvVars();
